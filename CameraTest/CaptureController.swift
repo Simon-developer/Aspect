@@ -20,10 +20,6 @@ struct CaptureController: View {
     
     weak var parent: ViewController?
     
-    // Кнопка навигации
-    let image:       String
-    let text:        String
-    
     // Анимация новой фотографии
     var photoToShow:                      Image?  = nil
     @State var prevPhoto:                 Image?
@@ -49,48 +45,10 @@ struct CaptureController: View {
             // Кнопка возврата на предыдущую страницу
             VStack {
                 HStack(alignment: .top) {
-                    BackButton(image: self.image, text: self.text) .onTapGesture { self.parent?.dismiss(animated: true) }
+                    BackButton(image: "chevron.left", text: "Назад") .onTapGesture { self.parent?.dismiss(animated: true) }
                     Spacer()
                 }.animation(.default).padding(.horizontal, 15)
                 Spacer()
-            }
-            // Миниатюры справа в верхнем углу
-            VStack {
-                HStack {
-                    Spacer()
-                    ZStack {
-                        EmptyPhoto().opacity(self.showAllPhotos ? 0.0 : 1.0)
-                        if self.prevPhoto != nil {
-                            self.prevPhoto!
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: 80, height: 110)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .shadow(radius: 7)
-                                .animation(.default)
-                                .opacity(self.showAllPhotos ? 0.0 : 1.0)
-                            // Контейнер всех фоток
-                            Color.green
-                                .background(self.opaqueGradient.cornerRadius(self.showAllPhotos ? 24 : 12))
-                                .frame(width: self.allPhotosFolderWidth, height: self.allPhotosFolderHeight)
-                                .opacity(self.showAllPhotos ? 1 : 0.001)
-                                .onTapGesture { self.toggleFolder() }
-                        }
-                    }
-                }.animation(.default).padding(.trailing, 15)
-                Spacer()
-            }
-
-            // ФОН С БЛЮРОМ ДЛЯ ПАПКИ ФОТО
-            // Если пользователь выбрал показывать все сделанные фотографии,
-            // показываю фон с блюром визора
-            // При тапе скрываю блюр сверху, блюр в captureController
-            if self.showAllPhotos {
-                BlurLayer().opacity(self.showAllPhotos ? 0.4 : 0.0).onTapGesture { self.toggleFolder() }
-            }
-            // АНИМИРОВАННЫЙ ПЕРЕХОД НОВОГО СНИМКА
-            if self.photoToShow != nil && self.photoToShow != self.prevPhoto  {
-                self.showPhoto()
             }
             // Управление процессом съемки - кнопки затвора, вспышки и т.д.
             VStack {
@@ -112,13 +70,50 @@ struct CaptureController: View {
                         }
                     }.padding(.all)
                 }.frame(height: CameraConstants.controllBarHeight)
-                }.edgesIgnoringSafeArea(.bottom).zIndex(999)
+            }.edgesIgnoringSafeArea(.bottom)
+            // ФОН С БЛЮРОМ ДЛЯ ПАПКИ ФОТО
+            // Если пользователь выбрал показывать все сделанные фотографии,
+            // показываю фон с блюром визора
+            // При тапе скрываю блюр сверху, блюр в captureController
+            if self.showAllPhotos {
+                BlurLayer().opacity(self.showAllPhotos ? 0.4 : 0.0).animation(.easeIn).onTapGesture { self.toggleFolder() }
+            }
+            // Миниатюры справа в верхнем углу
+            VStack {
+                HStack {
+                    Spacer()
+                    ZStack {
+                        EmptyPhoto().opacity(self.showAllPhotos ? 0.0 : 1.0)
+                        if self.prevPhoto != nil {
+                            self.prevPhoto!
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 80, height: 110)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .shadow(radius: 7)
+                                .animation(.default)
+                                .opacity(self.showAllPhotos ? 0.0 : 1.0)
+                            // Контейнер всех фоток
+                            Color.green.opacity(0.0)
+                                .background(self.opaqueGradient.cornerRadius(self.showAllPhotos ? 24 : 12))
+                                .frame(width: self.allPhotosFolderWidth, height: self.allPhotosFolderHeight)
+                                .opacity(self.showAllPhotos ? 1 : 0.001)
+                                .onTapGesture { self.toggleFolder() }
+//                            ForEach(in: parentView.takenPhotos, id: \.self) { photo in
+//                                
+//                            }
+                        }
+                    }
+                }.animation(.default).padding(.trailing, 15)
+                Spacer()
+            }
+            // АНИМИРОВАННЫЙ ПЕРЕХОД НОВОГО СНИМКА
+            if self.photoToShow != nil && self.photoToShow != self.prevPhoto  {
+                self.showPhoto()
+            }
         }.background(Color.clear)
     }
     func toggleFolder() {
-//        if let myParent = self.parent {
-//            myParent.captureController.rootView.toggleTopFolderBlur()
-//        }
         self.showAllPhotos.toggle()
         if self.allPhotosFolderWidth == 80 {
             self.allPhotosFolderWidth = UIScreen.main.bounds.size.width - 30
@@ -178,7 +173,7 @@ struct CustomCaptureControl: View {
 }
 struct BlurLayer: View {
     var body: some View {
-        Color.green
+        Color.black
         .edgesIgnoringSafeArea(.all)
     }
 }

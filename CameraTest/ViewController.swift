@@ -148,7 +148,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         // Функция, обеспечивающая пользовательский
         // интерфейс взаимодействия с камерой
         self.cameraInterfaceDelegate = CaptureControllerDelegate()
-        self.cameraInterface = UIHostingController(rootView: CaptureController(delegate: self.cameraInterfaceDelegate, image: "chevron.left", text: "Назад"))
+        self.cameraInterface = UIHostingController(rootView: CaptureController(delegate: self.cameraInterfaceDelegate, parent: self))
         self.cameraInterface.view.frame = self.view.bounds
         self.cameraInterface.view.backgroundColor = .clear
         addChild(self.cameraInterface)
