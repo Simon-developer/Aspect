@@ -43,10 +43,13 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     private var switchCamera:       AnyCancellable!
     private var switchFlashLight:   AnyCancellable!
     private var takeShoot:          AnyCancellable!
-    var cameraHeader:               UIHostingController<CameraHeader>!
-    var captureController:          UIHostingController<CaptureController>!
-    var cameraHeaderDelegate:       CameraHeaderDelegate!
-    var captureUIDelegate:          CaptureControllerDelegate!
+//    var cameraHeader:               UIHostingController<CameraHeader>!
+//    var captureController:          UIHostingController<CaptureController>!
+//    var cameraHeaderDelegate:       CameraHeaderDelegate!
+//    var captureUIDelegate:          CaptureControllerDelegate!
+    
+    var cameraInterfaceDelegate:    CaptureControllerDelegate!
+    var cameraInterface:            UIHostingController<CaptureController>!
     
     // константы
     var statusBarHeight: CGFloat!
@@ -133,8 +136,8 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
             return
         }
         if let image = UIImage(data: imageData) {
-            if self.cameraHeader != nil {
-                self.cameraHeader.rootView.setPhotoToShow(photo: image)
+            if self.cameraInterface != nil {
+                self.cameraInterface.rootView.setPhotoToShow(photo: image)
             }
         } else {
             print("Невозможно преобразовать")
@@ -144,48 +147,15 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     private func createCaptureUI() {
         // Функция, обеспечивающая пользовательский
         // интерфейс взаимодействия с камерой
-        captureUIDelegate = CaptureControllerDelegate()
-        captureController = UIHostingController(rootView: CaptureController(delegate: captureUIDelegate, parent: self))
-        let controllerHeight = CameraConstants.controllBarHeight
-        let controllerWidth = UIScreen.main.bounds.size.width
-        let controllerXPos = 0
-        let controllerYPos = UIScreen.main.bounds.size.height - CGFloat(controllerHeight)
-        captureController.view.frame = CGRect(x: CGFloat(controllerXPos), y: controllerYPos, width: controllerWidth, height: CGFloat(controllerHeight))
-        addChild(captureController)
-        self.cameraVisor.addSubview(captureController.view)
-        captureController.didMove(toParent: self)
+        self.cameraInterfaceDelegate = CaptureControllerDelegate()
+        self.cameraInterface = UIHostingController(rootView: CaptureController(delegate: self.cameraInterfaceDelegate, image: "chevron.left", text: "Назад"))
+        self.cameraInterface.view.frame = self.view.bounds
+        self.cameraInterface.view.backgroundColor = .clear
+        addChild(self.cameraInterface)
+        self.cameraVisor.addSubview(self.cameraInterface.view)
+        self.cameraInterface.didMove(toParent: self)
         
-        // Определяем стек фоток и
-        // кнопку для возвращения назад с помощью SwiftUI
-        cameraHeaderDelegate = CameraHeaderDelegate(newPhoto: nil)
-        cameraHeader   = UIHostingController(rootView: CameraHeader(delegate: cameraHeaderDelegate, image: "chevron.left", text: "Назад", parent: self))
-        cameraHeader.view.backgroundColor = .clear
-        let headerXPos: CGFloat = 0
-        let headerYPos: CGFloat = 0
-        let headerWidth: CGFloat = UIScreen.main.bounds.size.width
-        let headerHeight: CGFloat = UIScreen.main.bounds.size.height// - CameraConstants.controllBarHeight
-        
-        cameraHeader.view.frame = CGRect(x: headerXPos, y: headerYPos, width: headerWidth, height: headerHeight)
-        
-        addChild(cameraHeader)
-        
-        self.cameraVisor.addSubview(cameraHeader.view)
-        cameraHeader.didMove(toParent: self)
-        
-//        self.showFolderBlurCancellable = captureUIDelegate.$showFolderBlur.sink { showFolder in
-//            self.showFolderBlur = showFolder
-//            self.toggleFolderBlur()
-//        }
-//        self.switchFlashLight = captureUIDelegate.$flashLight.sink { value in
-//            self.switchFlash(value)
-//        }
     }
-    
-//    func toggleFolderBlur() {
-//        if self.showFolderBlur == false {
-//            self.cameraHeader.rootView.toggleFolder()
-//        }
-//    }
     
     func takePhoto() {
         self.disableTakePhotoButton()
@@ -247,13 +217,13 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 try self.currentDevice.lockForConfiguration()
                 if self.currentDevice.torchMode == .on {
                     self.currentDevice.torchMode = .off
-                    self.captureController.rootView.changeFlashLightIcon(toImage: "bolt.slash.fill")
+                    self.cameraInterface.rootView.changeFlashLightIcon(toImage: "bolt.slash.fill")
                 } else if self.currentDevice.torchMode == .off {
                     self.currentDevice.torchMode = .auto
-                    self.captureController.rootView.changeFlashLightIcon(toImage: "bolt.badge.a.fill")
+                    self.cameraInterface.rootView.changeFlashLightIcon(toImage: "bolt.badge.a.fill")
                 } else if self.currentDevice.torchMode == .auto {
                     self.currentDevice.torchMode = .on
-                    self.captureController.rootView.changeFlashLightIcon(toImage: "bolt.fill")
+                    self.cameraInterface.rootView.changeFlashLightIcon(toImage: "bolt.fill")
                 }
                 self.currentDevice.unlockForConfiguration()
             } catch {
@@ -362,9 +332,9 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     func disableTakePhotoButton() {
-        self.captureController.rootView.takePhotoButtonIsEnabled = false
+        self.cameraInterface.rootView.takePhotoButtonIsEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            self.captureController.rootView.takePhotoButtonIsEnabled = true
+            self.cameraInterface.rootView.takePhotoButtonIsEnabled = true
         }
     }
 }
