@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import AVFoundation
 
 class CaptureControllerDelegate: ObservableObject {
 //    @Published var showFolderBlur: Bool = false
@@ -25,9 +24,9 @@ struct CaptureController: View {
     @State var prevPhoto:                 Image?
     @State private var takenPhotoOpacity: Double  = 0.0
     @State private var takenPhotoOffsetX: CGFloat = 0
-    @State private var takenPhotoOffsetY: CGFloat = 0
+    @State private var takenPhotoOffsetY: CGFloat = -CameraConstants.controllBarHeight / 2
     @State private var takenPhotoWidth:   CGFloat = .infinity
-    @State private var takenPhotoHeight:  CGFloat = .infinity
+    @State private var takenPhotoHeight:  CGFloat = UIScreen.main.bounds.size.height - CameraConstants.controllBarHeight
     
     // Анимация открытия папки фотографий
     @State private var opaqueGradient: LinearGradient = LinearGradient(gradient: Gradient(colors: [Color.white, Color.white.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
@@ -55,7 +54,7 @@ struct CaptureController: View {
                 Spacer()
                 ZStack {
                     Color.pink.edgesIgnoringSafeArea(.all)
-                    TakePhotoButton().onTapGesture { if self.takePhotoButtonIsEnabled { if let parentView = self.parent { parentView.takePhoto() } }  }
+                    TakePhotoButton().onTapGesture { if self.takePhotoButtonIsEnabled { self.parent?.takePhoto() }  }
                     VStack {
                         HStack {
                             CustomCaptureControl(imageName: "pencil.and.outline")
@@ -84,7 +83,7 @@ struct CaptureController: View {
                     Spacer()
                     ZStack {
                         EmptyPhoto().opacity(self.showAllPhotos ? 0.0 : 1.0)
-                        if self.prevPhoto != nil {
+                        if self.prevPhoto != nil && self.parent != nil {
                             self.prevPhoto!
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
@@ -94,14 +93,32 @@ struct CaptureController: View {
                                 .animation(.default)
                                 .opacity(self.showAllPhotos ? 0.0 : 1.0)
                             // Контейнер всех фоток
-                            Color.green.opacity(0.0)
-                                .background(self.opaqueGradient.cornerRadius(self.showAllPhotos ? 24 : 12))
-                                .frame(width: self.allPhotosFolderWidth, height: self.allPhotosFolderHeight)
-                                .opacity(self.showAllPhotos ? 1 : 0.001)
-                                .onTapGesture { self.toggleFolder() }
-//                            ForEach(in: parentView.takenPhotos, id: \.self) { photo in
-//                                
-//                            }
+                            ZStack {
+                                Color.green.opacity(0.0)
+                                    .background(self.opaqueGradient.cornerRadius(self.showAllPhotos ? 24 : 12))
+                                    .opacity(self.showAllPhotos ? 1 : 0.001)
+                                    .onTapGesture { self.toggleFolder() }
+                                TakenPhotosHStack(parent: self.parent!, allPhotosFolderWidth: self.allPhotosFolderWidth,  allPhotosFolderHeight: self.allPhotosFolderHeight)
+                                .padding(.vertical)
+                                .opacity(self.showAllPhotos ? 1 : 0)
+                                HStack {
+                                    VStack(alignment: .leading) {
+                                        Text("Сделанные фото").font(.headline).foregroundColor(Color.black.opacity(0.7)).padding().background(Color.white.opacity(0.5)).clipShape(Capsule()).padding()
+                                        Spacer()
+                                        HStack {
+                                            HStack (spacing: 10) {
+                                                Image(systemName: "xmark.circle.fill").foregroundColor(.red)
+                                                Text("Удалить все").font(.caption).foregroundColor(Color.white.opacity(0.7))
+                                            }.padding().background(Color.black.opacity(0.5)).clipShape(Capsule()).shadow(radius: 5).padding([.top, .bottom, .leading])
+                                            HStack (spacing: 10) {
+                                                Image(systemName: "checkmark.circle.fill").foregroundColor(.green)
+                                                Text("Сохранить все").font(.caption).foregroundColor(Color.white.opacity(0.7))
+                                            }.padding().background(Color.black.opacity(0.5)).clipShape(Capsule()).shadow(radius: 5).padding([.top, .trailing, .bottom])
+                                        }
+                                    }
+                                    Spacer()
+                                }.opacity(self.showAllPhotos ? 1 : 0)
+                            }.frame(width: self.allPhotosFolderWidth, height: self.allPhotosFolderHeight)
                         }
                     }
                 }.animation(.default).padding(.trailing, 15)
@@ -134,7 +151,7 @@ struct CaptureController: View {
                 withAnimation(Animation.easeIn(duration: 0.5)) {
                     // Начало анимации перехода вверх
                     self.takenPhotoOffsetX = (UIScreen.main.bounds.size.width / 2) - 40 - 15
-                    self.takenPhotoOffsetY = -((UIScreen.main.bounds.size.height - CameraConstants.controllBarHeight) / 2) + (UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0) + 30
+                    self.takenPhotoOffsetY = -((UIScreen.main.bounds.size.height) / 2) + (UIApplication.shared.windows.first?.safeAreaInsets.top ?? 0) + 40
                     self.takenPhotoWidth = 80
                     self.takenPhotoHeight = 110
                     self.takenPhotoOpacity = 0.0
@@ -144,9 +161,9 @@ struct CaptureController: View {
                     // В сделанные снимки
                     self.prevPhoto = self.photoToShow
                     self.takenPhotoOffsetX = 0
-                    self.takenPhotoOffsetY = 0
+                    self.takenPhotoOffsetY = -CameraConstants.controllBarHeight
                     self.takenPhotoWidth = .infinity
-                    self.takenPhotoHeight = .infinity
+                    self.takenPhotoHeight = UIScreen.main.bounds.size.height - CameraConstants.controllBarHeight
                     self.takenPhotoOpacity = 1.0
                 }
             }
@@ -158,7 +175,46 @@ struct CaptureController: View {
         self.flashLightIcon = image
     }
 }
-
+struct TakenPhotosHStack: View {
+    weak var parent: ViewController?
+    @State var allPhotosFolderWidth: CGFloat
+    @State var allPhotosFolderHeight: CGFloat
+    var body: some View {
+        return ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                ForEach(0..<self.parent!.takenPhotos.count, id: \.self) { index in
+                    ZStack {
+                        Image(uiImage: self.parent!.takenPhotos[index])
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: UIScreen.main.bounds.size.width * 0.7)
+                            .cornerRadius(20)
+                            .overlay(
+                                VStack {
+                                    HStack (spacing: 3) {
+                                        Button(action: {}) {
+                                            Image(systemName: "xmark.circle").foregroundColor(.black)
+                                                .padding(14).background(Color.white.opacity(0.65)).clipShape(Circle())
+                                        }
+                                        Button(action: {}) {
+                                            Image(systemName: "square.and.arrow.down").foregroundColor(.black)
+                                            .padding(14).background(Color.white.opacity(0.65)).clipShape(Circle())
+                                        }
+                                        Button(action: {}) {
+                                            Image(systemName: "wand.and.stars").foregroundColor(.black)
+                                            .padding(14).background(Color.white.opacity(0.65)).clipShape(Circle())
+                                        }
+                                        Spacer()
+                                    }.padding(5)
+                                    Spacer()
+                                })
+                            .padding(10)
+                    }
+                }
+            }
+        }
+    }
+}
 struct CustomCaptureControl: View {
     let imageName: String
     var body: some View {
