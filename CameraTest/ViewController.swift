@@ -24,6 +24,16 @@ import AVFoundation
 
 class CameraConstants {
     static let controllBarHeight: CGFloat = 161
+    static let bigPhotoCornerRadius: CGFloat = 20
+    static let smallPhotoCornerRadius: CGFloat = 12
+    // Папка сосделанными фото
+    static let photosFolderWidth: CGFloat = UIScreen.main.bounds.size.width * 0.9
+    static let photosFolderHeight: CGFloat = 500
+    // Миниатюра  фото
+    static let photoMiniatureWidth: CGFloat = 80
+    static let photoMiniatureHeight: CGFloat = 110
+    // Сделанные фото в папке
+    static let photoInFolderMaxWidth: CGFloat = UIScreen.main.bounds.size.width * 0.7
 }
 
 class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
@@ -38,17 +48,13 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var currentVideoInput:  AVCaptureDeviceInput!
     var currentDevice:      AVCaptureDevice!
     var capturePhotoOutput: AVCapturePhotoOutput!
+    var setup = CameraSetup()
     
     // Интерфейс съемки
     private var switchCamera:       AnyCancellable!
     private var switchFlashLight:   AnyCancellable!
     private var takeShoot:          AnyCancellable!
-//    var cameraHeader:               UIHostingController<CameraHeader>!
-//    var captureController:          UIHostingController<CaptureController>!
-//    var cameraHeaderDelegate:       CameraHeaderDelegate!
-//    var captureUIDelegate:          CaptureControllerDelegate!
     
-    var cameraInterfaceDelegate:    CaptureControllerDelegate!
     var cameraInterface:            UIHostingController<CaptureController>!
     
     // константы
@@ -56,12 +62,6 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var safeAreaHeight:  CGFloat!
     var topSpace:        CGFloat!
     
-    // Данные
-    var takenPhotos:     [UIImage] = [UIImage(named: "1.jpg")!, UIImage(named: "2.jpg")!, UIImage(named: "3.jpg")!, UIImage(named: "1.jpg")!, UIImage(named: "2.jpg")!, UIImage(named: "3.jpg")!]
-    
-    // Папка с фотками
-    var showFolderBlurCancellable: AnyCancellable!
-    var showFolderBlur: Bool = false
     
     override func viewDidLoad() {
         
@@ -137,7 +137,8 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
         if let image = UIImage(data: imageData) {
             if self.cameraInterface != nil {
-                self.cameraInterface.rootView.setPhotoToShow(photo: image)
+                self.setup.takenPhotos.insert(image, at: 0)
+                //self.cameraInterface.rootView.setPhotoToShow(photo: image)
             }
         } else {
             print("Невозможно преобразовать")
@@ -147,8 +148,7 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     private func createCaptureUI() {
         // Функция, обеспечивающая пользовательский
         // интерфейс взаимодействия с камерой
-        self.cameraInterfaceDelegate = CaptureControllerDelegate()
-        self.cameraInterface = UIHostingController(rootView: CaptureController(delegate: self.cameraInterfaceDelegate, parent: self))
+        self.cameraInterface = UIHostingController(rootView: CaptureController(setup: self.setup, parent: self))
         self.cameraInterface.view.frame = self.view.bounds
         self.cameraInterface.view.backgroundColor = .clear
         addChild(self.cameraInterface)
@@ -217,13 +217,13 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 try self.currentDevice.lockForConfiguration()
                 if self.currentDevice.torchMode == .on {
                     self.currentDevice.torchMode = .off
-                    self.cameraInterface.rootView.changeFlashLightIcon(toImage: "bolt.slash.fill")
+                    self.setup.flashlightIcon = "bolt.slash.fill"
                 } else if self.currentDevice.torchMode == .off {
                     self.currentDevice.torchMode = .auto
-                    self.cameraInterface.rootView.changeFlashLightIcon(toImage: "bolt.badge.a.fill")
+                    self.setup.flashlightIcon = "bolt.badge.a.fill"
                 } else if self.currentDevice.torchMode == .auto {
                     self.currentDevice.torchMode = .on
-                    self.cameraInterface.rootView.changeFlashLightIcon(toImage: "bolt.fill")
+                    self.setup.flashlightIcon = "bolt.fill"
                 }
                 self.currentDevice.unlockForConfiguration()
             } catch {

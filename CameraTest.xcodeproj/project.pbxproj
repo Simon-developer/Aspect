@@ -7,6 +7,18 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		54499F4324CC4D1800E2F244 /* PhotosFolderBg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54499F4224CC4D1800E2F244 /* PhotosFolderBg.swift */; };
+		54499F4524CC4F0D00E2F244 /* PhotosFolderControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54499F4424CC4F0D00E2F244 /* PhotosFolderControls.swift */; };
+		547AEB0B24C6D3C9008CB0FE /* CustomCaptureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB0A24C6D3C9008CB0FE /* CustomCaptureController.swift */; };
+		547AEB0D24C6D3F0008CB0FE /* BlurLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB0C24C6D3F0008CB0FE /* BlurLayer.swift */; };
+		547AEB0F24C6D40B008CB0FE /* BackButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB0E24C6D40B008CB0FE /* BackButton.swift */; };
+		547AEB1124C6D431008CB0FE /* EmptyPhoto.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB1024C6D431008CB0FE /* EmptyPhoto.swift */; };
+		547AEB1324C6D44D008CB0FE /* TakePhotoButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB1224C6D44D008CB0FE /* TakePhotoButton.swift */; };
+		547AEB1524C6D56C008CB0FE /* PhotosFolderContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB1424C6D56C008CB0FE /* PhotosFolderContent.swift */; };
+		547AEB1724C6DAAA008CB0FE /* AllPhotosActionButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB1624C6DAAA008CB0FE /* AllPhotosActionButton.swift */; };
+		547AEB1924C70AB3008CB0FE /* TakenPhotoButtonOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB1824C70AB3008CB0FE /* TakenPhotoButtonOverlay.swift */; };
+		547AEB1B24C70B2D008CB0FE /* CapsuleTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 547AEB1A24C70B2D008CB0FE /* CapsuleTitle.swift */; };
+		54AE9CE324C9EBD400056359 /* CameraSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54AE9CE224C9EBD400056359 /* CameraSetup.swift */; };
 		54CB840C24B7028500C39130 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CB840B24B7028500C39130 /* AppDelegate.swift */; };
 		54CB840E24B7028500C39130 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CB840D24B7028500C39130 /* SceneDelegate.swift */; };
 		54CB841024B7028500C39130 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54CB840F24B7028500C39130 /* ViewController.swift */; };
@@ -29,6 +41,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		54499F4224CC4D1800E2F244 /* PhotosFolderBg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosFolderBg.swift; sourceTree = "<group>"; };
+		54499F4424CC4F0D00E2F244 /* PhotosFolderControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosFolderControls.swift; sourceTree = "<group>"; };
+		547AEB0A24C6D3C9008CB0FE /* CustomCaptureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCaptureController.swift; sourceTree = "<group>"; };
+		547AEB0C24C6D3F0008CB0FE /* BlurLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlurLayer.swift; sourceTree = "<group>"; };
+		547AEB0E24C6D40B008CB0FE /* BackButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButton.swift; sourceTree = "<group>"; };
+		547AEB1024C6D431008CB0FE /* EmptyPhoto.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPhoto.swift; sourceTree = "<group>"; };
+		547AEB1224C6D44D008CB0FE /* TakePhotoButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakePhotoButton.swift; sourceTree = "<group>"; };
+		547AEB1424C6D56C008CB0FE /* PhotosFolderContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosFolderContent.swift; sourceTree = "<group>"; };
+		547AEB1624C6DAAA008CB0FE /* AllPhotosActionButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPhotosActionButton.swift; sourceTree = "<group>"; };
+		547AEB1824C70AB3008CB0FE /* TakenPhotoButtonOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TakenPhotoButtonOverlay.swift; sourceTree = "<group>"; };
+		547AEB1A24C70B2D008CB0FE /* CapsuleTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CapsuleTitle.swift; sourceTree = "<group>"; };
+		54AE9CE224C9EBD400056359 /* CameraSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraSetup.swift; sourceTree = "<group>"; };
 		54CB840824B7028500C39130 /* CameraTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CameraTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		54CB840B24B7028500C39130 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		54CB840D24B7028500C39130 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -62,6 +86,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		54499F4824CC539D00E2F244 /* PhotosFolder */ = {
+			isa = PBXGroup;
+			children = (
+				54499F4224CC4D1800E2F244 /* PhotosFolderBg.swift */,
+				54499F4424CC4F0D00E2F244 /* PhotosFolderControls.swift */,
+				547AEB1424C6D56C008CB0FE /* PhotosFolderContent.swift */,
+				547AEB0C24C6D3F0008CB0FE /* BlurLayer.swift */,
+			);
+			name = PhotosFolder;
+			sourceTree = "<group>";
+		};
+		54499F4924CC53B100E2F244 /* Buttons */ = {
+			isa = PBXGroup;
+			children = (
+				547AEB0E24C6D40B008CB0FE /* BackButton.swift */,
+				547AEB1224C6D44D008CB0FE /* TakePhotoButton.swift */,
+				547AEB1624C6DAAA008CB0FE /* AllPhotosActionButton.swift */,
+				547AEB0A24C6D3C9008CB0FE /* CustomCaptureController.swift */,
+				547AEB1824C70AB3008CB0FE /* TakenPhotoButtonOverlay.swift */,
+			);
+			name = Buttons;
+			sourceTree = "<group>";
+		};
+		547AEB0924C6D3A7008CB0FE /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				54499F4924CC53B100E2F244 /* Buttons */,
+				54499F4824CC539D00E2F244 /* PhotosFolder */,
+				547AEB1024C6D431008CB0FE /* EmptyPhoto.swift */,
+				547AEB1A24C70B2D008CB0FE /* CapsuleTitle.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		54CB83FF24B7028400C39130 = {
 			isa = PBXGroup;
 			children = (
@@ -83,15 +141,17 @@
 		54CB840A24B7028500C39130 /* CameraTest */ = {
 			isa = PBXGroup;
 			children = (
+				547AEB0924C6D3A7008CB0FE /* Subviews */,
+				54CB843024B8EEF600C39130 /* CaptureController.swift */,
+				54CB840F24B7028500C39130 /* ViewController.swift */,
 				54CB840B24B7028500C39130 /* AppDelegate.swift */,
 				54CB840D24B7028500C39130 /* SceneDelegate.swift */,
-				54CB840F24B7028500C39130 /* ViewController.swift */,
 				54CB841124B7028500C39130 /* Main.storyboard */,
 				54CB841724B7028A00C39130 /* Assets.xcassets */,
 				54CB841924B7028A00C39130 /* LaunchScreen.storyboard */,
 				54CB841C24B7028A00C39130 /* Info.plist */,
 				54CB841424B7028500C39130 /* CameraTest.xcdatamodeld */,
-				54CB843024B8EEF600C39130 /* CaptureController.swift */,
+				54AE9CE224C9EBD400056359 /* CameraSetup.swift */,
 			);
 			path = CameraTest;
 			sourceTree = "<group>";
@@ -150,7 +210,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1150;
-				LastUpgradeCheck = 1150;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = Semyon;
 				TargetAttributes = {
 					54CB840724B7028400C39130 = {
@@ -206,11 +266,23 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				547AEB0F24C6D40B008CB0FE /* BackButton.swift in Sources */,
+				547AEB1524C6D56C008CB0FE /* PhotosFolderContent.swift in Sources */,
 				54CB841624B7028500C39130 /* CameraTest.xcdatamodeld in Sources */,
 				54CB841024B7028500C39130 /* ViewController.swift in Sources */,
+				547AEB1B24C70B2D008CB0FE /* CapsuleTitle.swift in Sources */,
+				547AEB0D24C6D3F0008CB0FE /* BlurLayer.swift in Sources */,
 				54CB840C24B7028500C39130 /* AppDelegate.swift in Sources */,
+				547AEB1724C6DAAA008CB0FE /* AllPhotosActionButton.swift in Sources */,
+				547AEB1324C6D44D008CB0FE /* TakePhotoButton.swift in Sources */,
 				54CB840E24B7028500C39130 /* SceneDelegate.swift in Sources */,
 				54CB843124B8EEF600C39130 /* CaptureController.swift in Sources */,
+				547AEB0B24C6D3C9008CB0FE /* CustomCaptureController.swift in Sources */,
+				54AE9CE324C9EBD400056359 /* CameraSetup.swift in Sources */,
+				547AEB1124C6D431008CB0FE /* EmptyPhoto.swift in Sources */,
+				54499F4524CC4F0D00E2F244 /* PhotosFolderControls.swift in Sources */,
+				54499F4324CC4D1800E2F244 /* PhotosFolderBg.swift in Sources */,
+				547AEB1924C70AB3008CB0FE /* TakenPhotoButtonOverlay.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +350,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -302,7 +375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -338,6 +411,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -356,7 +430,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -379,8 +453,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SamsTeam.CameraTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -398,8 +472,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = SamsTeam.CameraTest;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_VERSION = 5.0;
-				SWIFT_WHOLE_MODULE_OPTIMIZATION = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
