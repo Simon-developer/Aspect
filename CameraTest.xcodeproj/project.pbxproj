@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5431036124CF5040006CCD4D /* PhotoInFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5431036024CF5040006CCD4D /* PhotoInFolderView.swift */; };
 		5431036324CF5AFE006CCD4D /* UnderlyingXmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5431036224CF5AFE006CCD4D /* UnderlyingXmark.swift */; };
+		5431036524CF6734006CCD4D /* PhotoInFolderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5431036424CF6734006CCD4D /* PhotoInFolderView.swift */; };
 		54499F4324CC4D1800E2F244 /* PhotosFolderBg.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54499F4224CC4D1800E2F244 /* PhotosFolderBg.swift */; };
 		54499F4524CC4F0D00E2F244 /* PhotosFolderControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54499F4424CC4F0D00E2F244 /* PhotosFolderControls.swift */; };
 		54499F4B24CC6AE600E2F244 /* BackButtonPositioned.swift in Sources */ = {isa = PBXBuildFile; fileRef = 54499F4A24CC6AE600E2F244 /* BackButtonPositioned.swift */; };
@@ -46,8 +46,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5431036024CF5040006CCD4D /* PhotoInFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInFolderView.swift; sourceTree = "<group>"; };
 		5431036224CF5AFE006CCD4D /* UnderlyingXmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnderlyingXmark.swift; sourceTree = "<group>"; };
+		5431036424CF6734006CCD4D /* PhotoInFolderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoInFolderView.swift; sourceTree = "<group>"; };
 		54499F4224CC4D1800E2F244 /* PhotosFolderBg.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosFolderBg.swift; sourceTree = "<group>"; };
 		54499F4424CC4F0D00E2F244 /* PhotosFolderControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotosFolderControls.swift; sourceTree = "<group>"; };
 		54499F4A24CC6AE600E2F244 /* BackButtonPositioned.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackButtonPositioned.swift; sourceTree = "<group>"; };
@@ -103,8 +103,8 @@
 				54499F4424CC4F0D00E2F244 /* PhotosFolderControls.swift */,
 				547AEB1424C6D56C008CB0FE /* PhotosFolderContent.swift */,
 				547AEB0C24C6D3F0008CB0FE /* BlurLayer.swift */,
-				5431036024CF5040006CCD4D /* PhotoInFolderView.swift */,
 				5431036224CF5AFE006CCD4D /* UnderlyingXmark.swift */,
+				5431036424CF6734006CCD4D /* PhotoInFolderView.swift */,
 			);
 			name = PhotosFolder;
 			sourceTree = "<group>";
@@ -291,11 +291,11 @@
 				547AEB0D24C6D3F0008CB0FE /* BlurLayer.swift in Sources */,
 				54CB840C24B7028500C39130 /* AppDelegate.swift in Sources */,
 				547AEB1724C6DAAA008CB0FE /* AllPhotosActionButton.swift in Sources */,
-				5431036124CF5040006CCD4D /* PhotoInFolderView.swift in Sources */,
 				54499F4B24CC6AE600E2F244 /* BackButtonPositioned.swift in Sources */,
 				547AEB1324C6D44D008CB0FE /* TakePhotoButton.swift in Sources */,
 				54CB840E24B7028500C39130 /* SceneDelegate.swift in Sources */,
 				54CB843124B8EEF600C39130 /* CaptureController.swift in Sources */,
+				5431036524CF6734006CCD4D /* PhotoInFolderView.swift in Sources */,
 				547AEB0B24C6D3C9008CB0FE /* CustomCaptureController.swift in Sources */,
 				5431036324CF5AFE006CCD4D /* UnderlyingXmark.swift in Sources */,
 				54AE9CE324C9EBD400056359 /* CameraSetup.swift in Sources */,
