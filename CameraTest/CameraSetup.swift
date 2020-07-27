@@ -14,4 +14,12 @@ class CameraSetup: ObservableObject {
     @Published var showAllPhotos: Bool = false
     @Published var photos: [UIImage] = []
     @Published var flashlightIcon: String = "bolt.fill"
+    @Published var closeCamera: Bool = false
+    @Published var takePhotoButtonIsEnabled: Bool = true
+    @Published var currentlyDragging: Int = -1
+    @Published var offsetY: CGFloat = 0
+    
+    func removePhoto(at index: Int) {
+        self.takenPhotos.remove(at: index)
+    }
 }

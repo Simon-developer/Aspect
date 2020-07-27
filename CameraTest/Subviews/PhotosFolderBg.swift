@@ -11,7 +11,7 @@ import SwiftUI
 struct PhotosFolderBg: View {
     @State private var allPhotosFolderBg: LinearGradient = LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.6), Color.white.opacity(0.4)]), startPoint: .top, endPoint: .bottom)
     var body: some View {
-        Color.white.opacity(0.65).background(self.allPhotosFolderBg.cornerRadius(CameraConstants.bigPhotoCornerRadius))
+        Color.white.opacity(0.0).background(self.allPhotosFolderBg)
     }
 }
 

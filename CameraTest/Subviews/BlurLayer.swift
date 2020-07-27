@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BlurLayer: View {
     var body: some View {
-        Color.black.opacity(0.65)
+        Color.black.opacity(0.75)
         .edgesIgnoringSafeArea(.all)
     }
 }

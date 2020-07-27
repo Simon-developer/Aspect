@@ -30,9 +30,8 @@ struct BigActionButton: View {
                 .shadow(radius: 0)
         }
         .padding()
-        .background(Color.black.opacity(0.5))
+        .background(Color.black)
         .clipShape(Capsule())
-        .overlay(Capsule().stroke(Color.white.opacity(0.3), lineWidth: 1))
     }
 }
 

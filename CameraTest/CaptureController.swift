@@ -14,24 +14,72 @@ struct CaptureController: View {
     
     weak var parent: ViewController?
     
+    @Namespace private var folderAnimation
+    
     var takePhotoButtonIsEnabled: Bool = true
     
     var body: some View {
         ZStack {
-            // Основные элементы управления
+            // Кнопка "Назад"
+            BackButtonPositioned(parent: self.parent)
             
+            // Панель управления процессом съемки (кнопки снизу)
+            CaptureControls(parent: self.parent, setup: self.setup)
             
             if self.setup.showAllPhotos {
                 // Слой - размытие задника
-                BlurLayer()
-                    .onTapGesture { self.setup.showAllPhotos.toggle() }
-                // Слой - градиентный фон папки с фото
-                PhotosFolderBg()
-                    .frame(width: CameraConstants.photosFolderWidth, height: CameraConstants.photosFolderHeight)
-                // Слой - фотографии
-                PhotosFolderContent(setup: self.setup)
-                // Слой - заголовок папки и общие кнопки
-                PhotosFolderControls(setup: self.setup)
+                BlurLayer().onTapGesture { withAnimation { self.setup.showAllPhotos.toggle() } }
+                // Папка с фотографиями
+                ZStack {
+                    // Слой - градиентный фон папки с фото
+                    PhotosFolderBg()
+                    // Содержимое папки с фото
+                    ScrollView(.horizontal, showsIndicators: false) {
+                        HStack {
+                            // Выведем первую фотографию отдельно для анимации перехода
+                            if self.setup.takenPhotos.indices.contains(0) {
+                                ZStack {
+                                    UnderlyingXmark()
+                                        .opacity(self.setup.takenPhotos.indices.contains(0) ? 1.0 : 0)
+                                    PhotoInFolderView(setup: self.setup, index: 0)
+                                        .zIndex(10)
+                                        .matchedGeometryEffect(id: "FirstPhoto", in: folderAnimation)
+                                }
+                            }
+                            // Выводим оставшиеся фотографии
+                            PhotosFolderContent(setup: self.setup)
+                        }
+                    }
+                    // Слой - заголовок папки и общие кнопки
+                    PhotosFolderControls(setup: self.setup)
+                }
+                .frame(width: CameraConstants.photosFolderWidth, height: CameraConstants.photosFolderHeight)
+            } else {
+                // Если папка не открыта, показать миниатюру
+                HStack {
+                    Spacer()
+                    VStack {
+                        ZStack {
+                            if self.setup.takenPhotos.count >= 1 {
+                                Image(uiImage: self.setup.takenPhotos.first!)
+                                    .resizable()
+                                    .frame(maxWidth: CameraConstants.photoMiniatureWidth, maxHeight: CameraConstants.photoMiniatureHeight)
+                                    .cornerRadius(CameraConstants.smallPhotoCornerRadius)
+                                    .zIndex(10)
+                                    .matchedGeometryEffect(id: "FirstPhoto", in: folderAnimation)
+                                    .onTapGesture {
+                                        withAnimation { self.setup.showAllPhotos.toggle() }
+                                    }
+                                   
+                            } else {
+                                EmptyPhoto()
+                            }
+                        }
+                        .frame(width: CameraConstants.photoMiniatureWidth, height: CameraConstants.photoMiniatureHeight)
+                        .padding(.horizontal)
+                        Spacer()
+                    }
+                }
             }
         }
     }

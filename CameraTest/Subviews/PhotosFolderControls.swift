@@ -18,33 +18,34 @@ struct PhotosFolderControls: View {
     
     var body: some View {
         HStack {
-             VStack(alignment: .leading) {
-                 CapsuleTitle(text: "Сделанные фото")
-                 Spacer()
-                 HStack (spacing: 10) {
-                     Button(action: {}) {
-                         BigActionButton(image: "xmark.circle.fill", text: "Удалить все")
-                             .onTapGesture {
-                                 /*
-                                 Удаляем все фото из массива в setup
-                                 ЗАКРЫВАЕМ ПАПКУ
-                                 */
-                                 self.setup.showAllPhotos = false
-                             }
-                     }
-                     Button(action: {}) {
-                         BigActionButton(image: "checkmark.circle.fill", text: "Сохранить все")
+            Spacer()
+            VStack {
+                CapsuleTitle(text: "Сделанные фото")
+                    .offset(y: -100)
+                Spacer()
+                HStack (spacing: 10) {
+                    Button(action: {}) {
+                        BigActionButton(image: "xmark.circle.fill", text: "Удалить все")
                             .onTapGesture {
-                                /*
+                                self.setup.takenPhotos.removeAll()
+                                withAnimation  {
+                                    self.setup.showAllPhotos = false
+                                }
+                            }
+                    }
+                    Button(action: {}) {
+                    BigActionButton(image: "checkmark.circle.fill", text: "Сохранить все")
+                        .onTapGesture {
+                            /*
                                 Сохраняем все фото в библиотеку пользователя
                                 ЗАКРЫВАЕМ ПАПКУ С АЛЕРТОМ, ЧТО ВСЕСОХРАНЕНО
                                 */
-                            }
-                     }
-                 }.padding([.leading, .bottom])
-             }
-             Spacer()
-         }
+                        }
+                    }
+                }.offset(y: 100).padding()
+            }
+            Spacer()
+        }
     }
 }
 

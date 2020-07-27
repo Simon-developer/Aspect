@@ -27,13 +27,13 @@ class CameraConstants {
     static let bigPhotoCornerRadius: CGFloat = 20
     static let smallPhotoCornerRadius: CGFloat = 12
     // Папка сосделанными фото
-    static let photosFolderWidth: CGFloat = UIScreen.main.bounds.size.width * 0.9
+    static let photosFolderWidth: CGFloat = UIScreen.main.bounds.size.width
     static let photosFolderHeight: CGFloat = 500
     // Миниатюра  фото
     static let photoMiniatureWidth: CGFloat = 80
     static let photoMiniatureHeight: CGFloat = 110
     // Сделанные фото в папке
-    static let photoInFolderMaxWidth: CGFloat = UIScreen.main.bounds.size.width * 0.7
+    static let photoInFolderMaxWidth: CGFloat = 250
 }
 
 class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
@@ -64,9 +64,10 @@ class ViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     
     
     override func viewDidLoad() {
-        
         super.viewDidLoad()
+        
         self.setupBaseUI()
+        
         switch AVCaptureDevice.authorizationStatus(for: .video) {
         case .authorized:
             self.setupCaptureSession()
